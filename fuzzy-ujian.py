@@ -69,6 +69,7 @@ class FuzzyRule(FuzzyVariable):
 class FuzzySystem(FuzzyRule):
     def __init__(self, essay: int, pilgan: int):
         super().__init__()
+        print("test CI")
         self.essay = essay
         self.pilgan = pilgan
 
@@ -102,3 +103,7 @@ if __name__ == "__main__":
     fuzzy_system = FuzzySystem(args.essay, args.pilihan_ganda)
     time = fuzzy_system.compute()
     print(time)
+    for i in fuzzy_system.system.rules:
+        print(i)
+    for i in fuzzy_system.system.fuzzy_variables:
+        print(i)
