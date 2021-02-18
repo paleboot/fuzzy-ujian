@@ -69,7 +69,6 @@ class FuzzyRule(FuzzyVariable):
 class FuzzySystem(FuzzyRule):
     def __init__(self, essay: int, pilgan: int):
         super().__init__()
-        print("test CI")
         self.essay = essay
         self.pilgan = pilgan
 
