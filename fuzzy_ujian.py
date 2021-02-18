@@ -1,10 +1,17 @@
 import argparse
 import numpy as np
 import skfuzzy as fuzz
+
+from dataclasses import dataclass
 from skfuzzy import control as ctrl
 
 
+@dataclass
 class FuzzyVariable:
+    """
+    Class for storing fuzzy variables
+    """
+
     def __init__(self):
         self.essay = ctrl.Antecedent(np.arange(1, 6, 1), "essay")
         self.pilgan = ctrl.Antecedent(np.arange(1, 16, 1), "pilgan")
@@ -23,53 +30,58 @@ class FuzzyVariable:
         self.waktu["banyak"] = fuzz.trimf(self.waktu.universe, [90, 120, 120])
 
 
+@dataclass
 class FuzzyRule(FuzzyVariable):
+    """
+    Class for storing fuzzy rules derived from FuzzyVariable
+    """
+
     def __init__(self):
         super().__init__()
-        self.r1 = ctrl.Rule(
-            self.essay["sedikit"] & self.pilgan["sedikit"], self.waktu["sedikit"]
+        self.r_1 = ctrl.Rule(
+            self.essay["sedikit"] & self.pilgan["sedikit"],
+            self.waktu["sedikit"],
         )
-        self.r2 = ctrl.Rule(
+        self.r_2 = ctrl.Rule(
             self.essay["sedikit"] & self.pilgan["sedang"], self.waktu["sedang"]
         )
-        self.r3 = ctrl.Rule(
+        self.r_3 = ctrl.Rule(
             self.essay["sedikit"] & self.pilgan["banyak"], self.waktu["sedang"]
         )
-        self.r4 = ctrl.Rule(
+        self.r_4 = ctrl.Rule(
             self.essay["sedang"] & self.pilgan["sedikit"], self.waktu["sedang"]
         )
-        self.r5 = ctrl.Rule(
+        self.r_5 = ctrl.Rule(
             self.essay["sedang"] & self.pilgan["sedang"], self.waktu["banyak"]
         )
-        self.r6 = ctrl.Rule(
+        self.r_6 = ctrl.Rule(
             self.essay["sedang"] & self.pilgan["banyak"], self.waktu["banyak"]
         )
-        self.r7 = ctrl.Rule(
+        self.r_7 = ctrl.Rule(
             self.essay["banyak"] & self.pilgan["sedikit"], self.waktu["banyak"]
         )
-        self.r8 = ctrl.Rule(
+        self.r_8 = ctrl.Rule(
             self.essay["banyak"] & self.pilgan["sedang"], self.waktu["banyak"]
         )
-        self.r9 = ctrl.Rule(
+        self.r_9 = ctrl.Rule(
             self.essay["banyak"] & self.pilgan["banyak"], self.waktu["banyak"]
         )
         self.rules = [
-            self.r1,
-            self.r2,
-            self.r3,
-            self.r4,
-            self.r5,
-            self.r6,
-            self.r7,
-            self.r8,
-            self.r9,
+            self.r_1,
+            self.r_2,
+            self.r_3,
+            self.r_4,
+            self.r_5,
+            self.r_6,
+            self.r_7,
+            self.r_8,
+            self.r_9,
         ]
 
 
 class FuzzySystem(FuzzyRule):
     def __init__(self, essay: int, pilgan: int):
         super().__init__()
-        print("test CI")
         self.essay = essay
         self.pilgan = pilgan
 
