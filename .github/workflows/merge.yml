@@ -1,0 +1,25 @@
+name: Test Action on PR Merge
+ 
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    types: [closed, opened, synchronize, reopened]
+
+jobs:
+  messages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: PR Opened
+        run: echo PR opened!
+
+      - name: PR Merged
+        if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true }}
+        run: echo PR merged!
+        
+      - name: PR Closed
+        if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == false }}
+        run: echo PR closed!
