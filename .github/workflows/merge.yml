@@ -21,7 +21,7 @@ jobs:
         with:
           workflow: Analyze Code
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          inputs: '{ "message": "Analyzing code!", "commit_hash": "${{ github.event.push.head.sha }}" }'
+          inputs: '{ "message": "Analyzing code!", "commit_hash": "${{ github.sha }}" }'
         
       - name: PR Closed
         if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == false }}
