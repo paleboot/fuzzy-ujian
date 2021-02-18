@@ -39,7 +39,8 @@ class FuzzyRule(FuzzyVariable):
     def __init__(self):
         super().__init__()
         self.r_1 = ctrl.Rule(
-            self.essay["sedikit"] & self.pilgan["sedikit"], self.waktu["sedikit"]
+            self.essay["sedikit"] & self.pilgan["sedikit"],
+            self.waktu["sedikit"],
         )
         self.r_2 = ctrl.Rule(
             self.essay["sedikit"] & self.pilgan["sedang"], self.waktu["sedang"]
