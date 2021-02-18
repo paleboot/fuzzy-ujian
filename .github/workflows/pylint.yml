@@ -18,6 +18,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install numpy scikit-fuzzy
     - name: Analyzing code
-      uses: ricardochaves/python-lint@v1.3.0
+      uses: andymckay/pycodestyle-action@0.1.3
+
 
 
