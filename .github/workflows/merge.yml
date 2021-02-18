@@ -18,7 +18,11 @@ jobs:
 
       - name: PR Merged
         if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true }}
-        run: echo PR merged!
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: Analyze Code
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          inputs: '{ "message": "Analyzing code!", "commit_hash": ${{ github.event.pull_request.head.sha }} }'
         
       - name: PR Closed
         if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == false }}
