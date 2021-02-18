@@ -1,11 +1,10 @@
-name: Test Action on PR Merge
+name: Pull Request Merge
  
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-    types: [closed, opened, synchronize, reopened]
 
 jobs:
   messages:
@@ -16,8 +15,8 @@ jobs:
       - name: PR Opened
         run: echo PR opened!
 
-      - name: PR Merged
-        if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true }}
+      - name: PR Merged / Code Pushed
+        if: ${{ github.event_name == 'push' }}
         uses: benc-uk/workflow-dispatch@v1
         with:
           workflow: Analyze Code
